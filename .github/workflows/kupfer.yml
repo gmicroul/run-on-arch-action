@@ -36,7 +36,7 @@ jobs:
             pacman -Sy
             echo "$(whoami)"
             # groupadd docker
-            pacman -S python docker glibc shadow docker-buildx git --needed --noconfirm
+            pacman -S python python-pip docker glibc shadow docker-buildx git --needed --noconfirm
             #usermod -aG docker "$(whoami)"
             git clone -b dev https://gitlab.com/kupfer/kupferbootstrap
             cd kupferbootstrap
