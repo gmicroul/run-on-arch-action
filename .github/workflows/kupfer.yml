@@ -38,6 +38,7 @@ jobs:
             # groupadd docker
             pacman -S python python-pip docker glibc shadow docker-buildx git --needed --noconfirm
             #usermod -aG docker "$(whoami)"
+            rm -f /usr/lib/python3.12/EXTERNALLY-MANAGED
             git clone -b dev https://gitlab.com/kupfer/kupferbootstrap
             cd kupferbootstrap
             pip3 install -r requirements.txt
