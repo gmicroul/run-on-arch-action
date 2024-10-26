@@ -14,8 +14,8 @@ env:
 jobs:
   aarch64_job:
     # The host should always be Linux
-    runs-on: ubuntu-22.04
-    name: Build on ubuntu-22.04 aarch64
+    runs-on: ubuntu-24.04
+    name: Build on ubuntu-20.04 aarch64
     steps:
       - uses: actions/checkout@v4
       - uses: uraimo/run-on-arch-action@v2
@@ -33,12 +33,11 @@ jobs:
           run: |
             uname -a
             echo ::set-output name=uname::$(uname -a)
+            groupadd docker
             pacman -Sy
-            echo "$(whoami)"
-            # groupadd docker
-            pacman -S python python-pip docker glibc shadow docker-buildx git --needed --noconfirm
-            #usermod -aG docker "$(whoami)"
-            rm -f /usr/lib/python3.12/EXTERNALLY-MANAGED
+            pacman -S python docker docker-buildx git glibc --needed --noconfirm
+            echo "whoami=$(whoami)"
+            usermod -aG docker "$(whoami)"
             git clone -b dev https://gitlab.com/kupfer/kupferbootstrap
             cd kupferbootstrap
             pip3 install -r requirements.txt
