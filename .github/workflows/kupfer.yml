@@ -34,7 +34,7 @@ jobs:
             uname -a
             echo ::set-output name=uname::$(uname -a)
             pacman -Sy
-            pacman -S python docker docker-buildx git glibc --needed --noconfirm
+            pacman -S python docker docker-buildx git glibc wget --needed --noconfirm
             echo "whoami=$(whoami)"
    
             git clone -b dev https://gitlab.com/kupfer/kupferbootstrap
@@ -42,6 +42,12 @@ jobs:
             pip3 install -r requirements.txt
             ln -s "$(pwd)/bin/kupferbootstrap" /usr/local/bin/
             kupferbootstrap --help
+            pwd
+            wget https://github.com/gmicroul/action_for_pmos/raw/refs/heads/main/kupferbootstrap.toml
+            kupferbootstrap config init -N
+            kupferbootstrap config profile init
+            cp -r ./kupferbootstrap.toml /root/.config/kupfer/kupferbootstrap.toml
+            kupferbootstrap image build oneplus-fajita
 
       - name: Get the output
         # Echo the `uname` output parameter from the `runcmd` step
